@@ -1,2 +1,59 @@
-# test
-Test page
+<!DOCTYPE html><html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1"><head><title>Test</title>
+<script src="index.js"></script>
+<link rel="stylesheet" href="./style.cs">
+<style> 
+body{text-align:center;}
+.ran{animation: ran 100ms infinite;
+} 
+.anim{
+position:absolute;left:20%;top:35%;
+} 
+.anim2{
+position:absolute;left:45%;top:35%;
+} 
+@keyframes ran{from{transform:rotate(0deg);}
+to{transform:rotate(0deg);}}
+@keyframes spin{from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}}
+@keyframes spine{from{transform:rotate(360deg);}
+to{transform:rotate(0deg);}}
+</style></head><body>
+<p id="md"></p>
+<p class="ran">i</p>
+<div id="content">
+<canvas class="anim"></canvas>
+<canvas class="anim1"></canvas>
+</div>
+
+<script>
+$(document).ready(function(){
+$('.ran').on('animationiteration',function(e){
+$('.anim').css('animation', 'spin 9000ms infinite');
+$('.anim1').css('animation', 'spine 6000ms infinite');
+
+$.get("data/txt.txt",function(txt){
+var x = $(".anim,.anim1")[0];
+var ctx = x.getContext("2d");
+ctx.font = "30px Arial";
+ctx.fillText(txt,80,60);
+ctx.clearRect(00,80,60,60);
+});
+$.get("data/c1.txt",function(c1){
+$.get("data/c2.txt",function(c2){
+$.get("data/c3.txt",function(c3){
+$('.anim,.anim1').css('background-color','rgb('+c1+','+c2+','+c3+')');
+});});});
+$.get("data/cw.txt",function(cw){
+$('.anim,.anim1').css('width',cw+'px');});
+$.get("data/ch.txt",function(ch){
+$('.anim,.anim1').css('height',ch+'px');});
+});});
+
+$("body").click(function(e){var parentOffset = $(this).parent().offset();
+$(this).offset();
+var relX = e.pageX - parentOffset.left;
+var relY = e.pageY - parentOffset.top;
+$("#md").txt(relX+relY);
+});
+</script></body></html> 
